@@ -22,11 +22,26 @@ const persons =
       "id": "4",
       "name": "Mary Poppendieck", 
       "number": "39-23-6423122"
+    },
+    {
+      "id": "5",
+      "name": "John West", 
+      "number": "00-11-64231111"
+    },
+    {
+      "id": "6",
+      "name": "Jake Kyle", 
+      "number": "00-11-64551111"
     }
 ]
 
-app.get('/', (request, response) => {
-    response.send('<h1>Hello World!</h1>')
+const maxId = persons.length > 0
+    ? Math.max(...persons.map(person => Number(person.id)))
+    : 0
+
+app.get('/info', (request, response) => {    
+    const date = new Date()
+    response.send(`<p>Phonebook has info for ${maxId} people</p> <br/><p>${date}</p>`)
 })
 
 app.get('/api/persons', (request, response) => {
