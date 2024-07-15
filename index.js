@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const persons =
+let persons =
 [
     { 
       "id": "1",
@@ -54,10 +54,20 @@ app.get('/api/persons/:id', (request, response) => {
 
     if (item) {
         response.json(item)
-      } else {
+    } else {
         response.status(404).end()
-      }
-  })
+    }
+})
+
+app.delete('/api/persons/:id', (request, response) => {
+    const id = request.params.id
+    console.log(typeof id)
+    console.log(id, 'Resource ID')
+    persons = persons.filter(person => person.id !== id)
+    if(persons) {
+        response.status(204).end()
+    }
+})
 
 const PORT = 3001
 app.listen(PORT, () => {
