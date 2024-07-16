@@ -12,12 +12,18 @@ const requestLogger = (request, response, next) => {
 
 app.use(requestLogger) */
 
-app.use(morgan('tiny'))
-
 morgan.token('body', function (req, res) {
     return JSON.stringify(req.body)
 })
 
+morgan(function (tokens, req, res) {
+  return [
+    tokens.tiny(req, res),
+    tokens.body(req, res)
+  ].join(' ')
+})
+
+app.use(morgan('tiny'))
 app.use(morgan(':body'))
 
 let persons =
