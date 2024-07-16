@@ -97,10 +97,10 @@ app.post('/api/persons', (request, response) => {
 
   const person = {
     id: generateId(),
-    name: String(body.name),
-    number: String(body.number)
+    name: body.name,
+    number: body.number
   }
-  
+
   for(const i in persons) {
     if(person.name === persons[i].name) {
       console.log(person.name, 'new person name')
