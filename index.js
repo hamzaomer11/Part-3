@@ -97,8 +97,18 @@ app.post('/api/persons', (request, response) => {
 
   const person = {
     id: generateId(),
-    name: body.name,
-    number: body.number
+    name: String(body.name),
+    number: String(body.number)
+  }
+  
+  for(const i in persons) {
+    if(person.name === persons[i].name) {
+      console.log(person.name, 'new person name')
+      console.log(persons[i].name, 'existing person name')
+      return response.status(400).json({
+        error: 'name must be unique' 
+      })
+    }
   }
 
   persons = persons.concat(person)
