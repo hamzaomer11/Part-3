@@ -1,27 +1,10 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-/* 
-const requestLogger = (request, response, next) => {
-  console.log('Method:', request.method)
-  console.log('Path:  ', request.path)
-  console.log('Body:  ', request.body)
-  console.log('---')
-  next()
-}
 
-app.use(requestLogger) */
-
-morgan.token('body', function (req, res) {
+morgan.token('body', function (req) {
     return JSON.stringify(req.body)
 })
-
-/* morgan(function (tokens, req, res) {
-  return [
-    tokens.tiny(req, res),
-    tokens.body(req, res)
-  ].join(' ')
-}) */
 
 morgan(function (tokens, req, res) {
   return [
