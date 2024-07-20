@@ -27,14 +27,21 @@ const person = new Person({
   number: '01234',
 })
 
+if (process.argv.length === 3) {
+    Person.find({}).then(result => {
+        result.forEach(person => {
+          console.log(person)
+        })
+        mongoose.connection.close()
+    })
+} else if(process.argv.length === 5) {
+    const person = new Person({
+        name: process.argv[4],
+        number: process.argv[5],
+      })
+}
+
 person.save().then(result => {
   console.log('person saved!')
   mongoose.connection.close()
-})
-
-Person.find({}).then(result => {
-    result.forEach(person => {
-      console.log(person)
-    })
-    mongoose.connection.close()
 })
