@@ -39,9 +39,9 @@ if (process.argv.length === 3) {
         name: process.argv[3],
         number: process.argv[4],
     })
-}
 
-person.save().then(result => {
-  console.log('person saved!')
-  mongoose.connection.close()
-})
+    person.save().then(result => {
+        console.log('person saved!')
+        mongoose.connection.close()
+    });
+}
