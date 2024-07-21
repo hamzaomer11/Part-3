@@ -119,7 +119,7 @@ app.post('/api/persons', (request, response) => {
     console.log(response.status(400))
   }
 
-  /*  Valid for Exercise 3.5 */
+  /*  Valid for Exercise 3.5 - Invalid for Exercise 3.13 */
   const person = new Person({
     id: generateId(),
     name: body.name,
@@ -131,6 +131,7 @@ app.post('/api/persons', (request, response) => {
       response.json(savedPerson)
     })
 
+  /* - Valid for Exercise 3.6 - Invalid for Exercise 3.14 */
   for(const i in persons) {
     if(person.name === persons[i].name) {
       console.log(person.name, 'new person name')
