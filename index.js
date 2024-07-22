@@ -63,17 +63,28 @@ let persons =
     }
 ]
 
+
+/* Valid for Exercise 3.2 - Invalid for Exercise 3.18 */
 const maxId = persons.length > 0
     ? Math.max(...persons.map(person => Number(person.id)))
     : 0
 
 app.get('/info', (request, response) => {    
-    const date = new Date()
-    response.send(`<p>Phonebook has info for ${maxId} people</p> <br/><p>${date}</p>`)
+    /* Valid for Exercise 3.2 - Invalid for Exercise 3.18 */
+    /* const date = new Date()
+    response.send(`<p>Phonebook has info for ${maxId} people</p> <br/><p>${date}</p>`) */
+    Person.countDocuments({})
+      .then(result => {
+        const date = new Date()
+        response.send(`<p>Phonebook has info for ${result} people</p> <br/><p>${date}</p>`)
+      })
+    
+    
 })
 
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(result => {
+    console.log(typeof result, 'result: data type')
     response.json(result)
 })
 })
@@ -148,12 +159,16 @@ app.post('/api/persons', (request, response) => {
   }
 })
 
-app.put('/api/notes/:id', (request, response, next) => {
+app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
+  console.log(body, 'body: data type')
 
   const person = {
-    number: JSON.stringify(body.number)
+    name: body.name,
+    number: body.number
   }
+
+  console.log(person, 'person: data type')
 
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
     .then(updatedPerson => {
