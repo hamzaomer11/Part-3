@@ -2,9 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-
 const cors = require('cors')
-
 const Person = require('./models/persons')
 const errorHandler = require('./models/errorhandling')
 
@@ -148,6 +146,20 @@ app.post('/api/persons', (request, response) => {
       })
     }
   }
+})
+
+app.put('/api/notes/:id', (request, response, next) => {
+  const body = request.body
+
+  const person = {
+    number: JSON.stringify(body.number)
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson)
+    })
+    .catch(error => next(error))
 })
 
 const PORT = process.env.PORT
