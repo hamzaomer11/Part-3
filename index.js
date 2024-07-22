@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 const Person = require('./models/persons')
+const errorHandler = require('./models/errorhandling')
 
 app.use(cors())
 
@@ -159,15 +160,5 @@ const unknownEndpoint = (request, response) => {
 }
 
 app.use(unknownEndpoint)
-
-const errorHandler = (error, request, response, next) => {
-  console.error(error.message)
-
-  if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' })
-  } 
-
-  next(error)
-}
 
 app.use(errorHandler)
