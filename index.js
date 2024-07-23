@@ -168,9 +168,12 @@ app.put('/api/persons/:id', (request, response, next) => {
   console.log({name, number})
 
   /* Valid for Exercise 3.17 **
+
+  const body = request.body
+  
   const person = {
-    name: {name},
-    number: {number}
+    name: body.name,
+    number: body.number
   }
 
   console.log(person, 'person: data type') 
