@@ -78,8 +78,6 @@ app.get('/info', (request, response) => {
         const date = new Date()
         response.send(`<p>Phonebook has info for ${result} people</p> <br/><p>${date}</p>`)
       })
-    
-    
 })
 
 app.get('/api/persons', (request, response) => {
@@ -118,7 +116,7 @@ const generateId = () => {
   return String(maxId)
 }
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
   
   if (!body.name) {
@@ -146,6 +144,7 @@ app.post('/api/persons', (request, response) => {
     .then(savedPerson => {
       response.json(savedPerson)
     })
+    .catch(error => next(error))
 
   /* - Valid for Exercise 3.6 - Invalid for Exercise 3.14 */
   for(const i in persons) {
@@ -157,20 +156,19 @@ app.post('/api/persons', (request, response) => {
       })
     }
   }
+
+  if (body.name === undefined) {
+    return response.status(400).json({ error: 'name missing' })
+  }
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-  const body = request.body
-  console.log(body, 'body: data type')
+  const {name, number} = request.body
 
-  const person = {
-    name: body.name,
-    number: body.number
-  }
+  console.log({name, number})
 
-  console.log(person, 'person: data type')
-
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  Person.findByIdAndUpdate(request.params.id, {name, number}, 
+    { new: true, runValidators: true, context: 'query'})
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
