@@ -100,8 +100,8 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    console.log(request.params.id)
-      Person.findByIdAndDelete(request.params.id)
+    console.log(request.params.id.toString())
+      Person.findByIdAndDelete(request.params.id.toString())
       .then(result => {
         response.status(204).end()
       })
