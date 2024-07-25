@@ -100,11 +100,12 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    Person.findByIdAndDelete(request.params.id)
-    .then(result => {
-      response.status(204).end()
-    })
-    .catch(error => next(error))
+    console.log(request.params.id)
+      Person.findByIdAndDelete(request.params.id)
+      .then(result => {
+        response.status(204).end()
+      })
+      .catch(error => next(error))
 })
 
 app.use(express.json())
@@ -135,7 +136,7 @@ app.post('/api/persons', (request, response, next) => {
 
   /*  Valid for Exercise 3.5 - Invalid for Exercise 3.13 */
   const person = new Person({
-    id: generateId(),
+    /*id: generateId(),*/
     name: body.name,
     number: body.number
   })
