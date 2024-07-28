@@ -6,6 +6,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    "airbnb"
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
@@ -17,5 +18,30 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    '@stylistic/js/indent': [
+        'error',
+        2
+      ],
+      '@stylistic/js/linebreak-style': [
+        'error',
+        'unix'
+      ],
+      '@stylistic/js/quotes': [
+        'error',
+        'single'
+      ],
+      '@stylistic/js/semi': [
+        'error',
+        'never'
+      ],
+      'eqeqeq': 'error',
+      'no-trailing-spaces': 'error',
+      'object-curly-spacing': [
+        'error', 'always'
+      ],
+      'arrow-spacing': [
+        'error', { 'before': true, 'after': true },
+      ],
+      'no-console': 'off',
   },
-}
+};
